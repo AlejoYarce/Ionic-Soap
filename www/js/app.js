@@ -15,7 +15,15 @@ angular.module('ionic-soap', ['ionic'])
 
 .controller('MainCtrl', function($scope, testService) {
 
-  testService.GetCitiesByCountry('colombia').then(
+  // testService.GetCitiesByCountry('colombia').then(
+  //   function(response) {
+  //     var x2js = new X2JS();
+  //     var jsonObj = x2js.xml_str2json( response );
+  //     $scope.countries = jsonObj.NewDataSet.Table;
+  //   }
+  // );
+
+  testService.ConsultarUsuario().then(
     function(response) {
       var x2js = new X2JS();
       var jsonObj = x2js.xml_str2json( response );
@@ -25,13 +33,16 @@ angular.module('ionic-soap', ['ionic'])
 
 })
 
-.factory("testService", ['$soap',function($soap){
-    var base_url = "http://www.webservicex.com/globalweather.asmx";
-    // var base_url = "http://201.232.103.32:8080/wsTurnosUltracem/srvPlanta.svc";
+.factory("testService", ['$soap',function($soap) {
+    // var base_url = "http://www.webservicex.com/globalweather.asmx";
+    var base_url = "http://201.232.103.32:8080/wsUsuarios/srvUsuarios.svc";
 
     return {
         GetCitiesByCountry: function(countryName){
-            return $soap.post(base_url,"GetCitiesByCountry", {CountryName: countryName});
+            return $soap.post(base_url, "GetCitiesByCountry", {CountryName: countryName});
+        },
+        ConsultarUsuario: function() {
+            return $soap.post(base_url, "ConsultarUsuario");
         }
     }
 }])

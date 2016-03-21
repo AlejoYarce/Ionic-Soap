@@ -2,6 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' * ws://localhost:35729 data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *;script-src 'self' localhost:35729 'unsafe-eval' 'unsafe-inline';">
+
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
@@ -27,15 +29,27 @@
   <body ng-app="ionic-soap">
 
     <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
+      <ion-header-bar class="bar-positive">
+        <h1 class="title">Ionic + Servicios SOAP</h1>
       </ion-header-bar>
       <ion-content ng-controller="MainCtrl">
-        <ul class="list">
-            <li class="item" ng-repeat="country in countries">
-              {{$index+1}}. {{country.City}}
-            </li>
-        </ul>
+        <br>
+        <div class="button-bar">
+          <a class="button button-dark" ng-click="showCities()">Ciudades</a>
+          <a class="button button-stable" ng-click="cleanData()">Limpiar</a>
+          <a class="button button-assertive" ng-click="showUsers()">Usuarios</a>
+        </div>
+        <div class="card" ng-show="isCities">
+          <div class="item item-text-wrap" ng-repeat="city in cities">
+            {{$index+1}}. {{city.City}}
+          </div>
+        </div>
+
+        <div class="card" ng-show="isUsers">
+          <div class="item item-text-wrap" ng-repeat="user in users">
+            {{$index+1}}. {{user}}
+          </div>
+        </div>
       </ion-content>
     </ion-pane>
   </body>
